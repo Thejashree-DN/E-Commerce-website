@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Products | E-Commerce{% endblock %}
+
+{% block content %}
+<h1 class="text-4xl font-extrabold text-center text-indigo-800 mb-10">Our Products</h1>
+
+<!-- 🌟 Product Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+  {% for product in products %}
+  <div class="p-4 rounded-2xl shadow-lg hover:shadow-2xl transition transform hover:-translate-y-1 
+              {% cycle 'bg-blue-100' 'bg-green-100' 'bg-yellow-100' 'bg-pink-100' 'bg-purple-100' %}">
+    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-56 object-cover rounded-lg">
+    <h2 class="mt-3 text-lg font-bold text-gray-800">{{ product.name }}</h2>
+    <p class="text-gray-600 mb-2">₹{{ product.price }}</p>
+    <a href="{% url 'products:product_detail' product.id product.slug %}"
+       class="inline-block mt-2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition">
+       View Details
+    </a>
+  </div>
+  {% empty %}
+  <p class="col-span-full text-center text-gray-600">No products available at the moment.</p>
+  {% endfor %}
+</div>
+{% endblock %}
